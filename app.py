@@ -1,7 +1,7 @@
 import os
 import argparse
 import markdown2
-import filecmp
+import hashlib
 
 
 def getArgs():
@@ -10,6 +10,12 @@ def getArgs():
     args = parser.parse_args()
     return args
 
+def getMD5(path):
+    content = open(path, 'rb').read()
+    h = hashlib.md5()
+    h.update(content)
+    return h.hexdigest()
+
 if __name__ == '__main__':
     args = getArgs()
     path = args.path
@@ -17,9 +23,10 @@ if __name__ == '__main__':
         print('Bad path specified. Exiting.')
         exit()
 
-    file_watch = open(path, 'r')
+    hash_before = getMD5(path)
     while(True):
-        print(f'watching {path}')
-        file_watch_new = open(path, 'r')
-        if(filecmp.cmp(file_watch, file_watch_new)):
-            print('file has changed')
+        hash_test = getMD5(path)
+        if hash_before != hash_test:
+            print('file modified')
+        hash_before = hash_test
+
