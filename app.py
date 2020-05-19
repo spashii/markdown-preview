@@ -2,7 +2,7 @@ import os
 import time
 import argparse
 import hashlib
-from markdown2 import Markdown 
+import markdown
 
 
 def loadArgs():
@@ -28,16 +28,18 @@ def getMD5(path):
 
 def generateHTML(path):
     content = open(path, 'r').read()
-    # html = '<html><body>'+
-    # html = markdown2.markdown(content) 
-    markdowner = Markdown()
-    html = markdowner.convert(content)
-    content2 = open(f'{path}.html', 'w')
+    html = markdown.markdown(content, extensions=['extra', 'smarty'], output_format='html5')
+    filename = os.path.basename(path)
+    (file, ext) = os.path.splitext(filename)
+    html_path = file + '.html'
+    content2 = open(html_path, 'w')
     content2.write(html)
+    print(f'generated HTML at {html_path}')
 
 if __name__ == '__main__':
     args = loadArgs()
     path = args.path
+    print(f'watching file {path}')
     refresh = args.refresh
     hash_before = getMD5(path)
     html = generateHTML(path)
@@ -45,7 +47,8 @@ if __name__ == '__main__':
         hash_test = getMD5(path)
         if hash_before != hash_test:
             print('file modified')
+            html = generateHTML(path)
         hash_before = hash_test
         time.sleep(refresh)
-        print('now')
+        
 
