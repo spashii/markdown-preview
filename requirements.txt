@@ -1,16 +1,5 @@
-On branch master
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
-	modified:   app.py
-	new file:   testing.html
-	new file:   testing.md
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	modified:   requirements.txt
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-	index.html
-
+importlib-metadata==1.6.0
+Jinja2==2.11.2
+Markdown==3.2.2
+MarkupSafe==1.1.1
+zipp==3.1.0

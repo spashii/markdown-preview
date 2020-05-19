@@ -1,0 +1,13 @@
+.container {
+    box-sizing : border-box;
+    width: 600px;
+    margin: 20px auto;
+    border: 1px solid;
+    padding-left : 30px;
+    padding-right : 30px;
+}
+
+.filename {
+    width: 600px;
+    margin: 20px auto 0 auto;
+}

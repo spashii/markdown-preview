@@ -3,6 +3,7 @@ import time
 import argparse
 import hashlib
 import markdown
+from jinja2 import Template
 
 
 def loadArgs():
@@ -28,7 +29,9 @@ def getMD5(path):
 
 def generateHTML(path):
     content = open(path, 'r').read()
-    html = markdown.markdown(content, extensions=['extra', 'smarty'], output_format='html5')
+    html_content = markdown.markdown(content, extensions=['extra', 'smarty'], output_format='html5')
+    html_template = Template(open('index.html', 'r').read()) 
+    html = html_template.render(path=path, content=html_content)
     filename = os.path.basename(path)
     (file, ext) = os.path.splitext(filename)
     html_path = file + '.html'
