@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import time
 import argparse
@@ -8,17 +9,17 @@ from jinja2 import Template
 
 def loadArgs():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path',
+    optional = parser._action_groups.pop()
+    required = parser.add_argument_group('required arguments')
+    required.add_argument('-p', '--path', required=True,
                         help='specify the path of markdown file')
-    parser.add_argument('-r', '--refresh', type=int,
+    optional.add_argument('-r', '--refresh', type=int, default=1,
                         help='specify time interval in seconds to watch for file changes')
+    parser._action_groups.append(optional)
     args = parser.parse_args()
-    if args.path == None or not os.path.exists(args.path):
+    if not os.path.exists(args.path):
         print('Bad path specified. Exiting.')
         exit()
-    if args.refresh == None or args.refresh < 0:
-        args.refresh = 1
-        pass
     return args
 
 def getMD5(path):
@@ -28,8 +29,11 @@ def getMD5(path):
     return h.hexdigest()
 
 def generateHTML(path):
-    content = open(path, 'r').read()
-    html_content = markdown.markdown(content, extensions=['extra', 'smarty'], output_format='html5')
+    md_content = open(path, 'r').read()
+    extensions=['extra', 'smarty', 'sane_lists', 'toc', 'pymdownx.tilde'
+                ,'codehilite']
+    html_content = markdown.markdown(md_content, extensions=extensions,
+                                    output_format='html5')
     html_template = Template(open('index.html', 'r').read()) 
     html = html_template.render(path=path, content=html_content)
     filename = os.path.basename(path)
