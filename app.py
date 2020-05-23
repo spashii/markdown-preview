@@ -1,11 +1,23 @@
 #!/usr/bin/env python
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
 import os
 import time
 import argparse
 import hashlib
 import markdown
 from jinja2 import Template
-
+mess="""
+<script type="text/javascript">
+window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
+</script>
+"""
 
 def loadArgs():
     parser = argparse.ArgumentParser()
@@ -41,6 +53,10 @@ def generateHTML(path):
     html_path = file + '.html'
     content2 = open(html_path, 'w')
     content2.write(html)
+    content2.close()
+    # refresh=open(html_path,'a')
+    # refresh.write(mess)
+    # refresh.close()
     print(f'generated HTML at {html_path}')
 
 if __name__ == '__main__':
@@ -50,12 +66,19 @@ if __name__ == '__main__':
     refresh = args.refresh
     hash_before = getMD5(path)
     html = generateHTML(path)
+    driver = webdriver.Safari()
+    driver.get('file:///Users/ridhambhagat/Documents/markdown-to-html/testing.html')
     while(True):
         hash_test = getMD5(path)
         if hash_before != hash_test:
             print('file modified')
             html = generateHTML(path)
+            driver.refresh()
+            
+
+
         hash_before = hash_test
         time.sleep(refresh)
+    driver.quit()
         
 
