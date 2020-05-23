@@ -46,33 +46,33 @@ def generateHTML(path):
    
 
 if __name__ == '__main__':
-	enpath=os.environ['PATH']
-	loc=os.getcwd()
-	if('geckodriver' not in enpath):
-		print('ha')
-		os.system('export PATH=$PATH:'+loc+'geckodriver')
-	args = loadArgs()
-	path = args.path
-	print(f'watching file {path}')
-	refresh = args.refresh
-	hash_before = getMD5(path)
-	html = generateHTML(path)
-	driver = webdriver.Firefox()
-	loc=os.getcwd()
-	driver.get('file://'+loc+'/testing.html')
+    enpath=os.environ['PATH']
+    loc=os.getcwd()
+    if('geckodriver' not in enpath):
+    	print('ha')
+    	os.system('export PATH=$PATH:'+loc+'geckodriver')
+    args = loadArgs()
+    path = args.path
+    print(f'watching file {path}')
+    refresh = args.refresh
+    hash_before = getMD5(path)
+    html = generateHTML(path)
+    driver = webdriver.Firefox()
+    loc=os.getcwd()
+    driver.get('file://'+loc+'/testing.html')
 
 
-	while(True):
-		hash_test = getMD5(path)
-		if hash_before != hash_test:
-			print('file modified')
-			html = generateHTML(path)
-			driver.refresh()
+    while(True):
+        hash_test = getMD5(path)
+        if hash_before != hash_test:
+            print('file modified')
+            html = generateHTML(path)
+            driver.refresh()
+        hash_before = hash_test    
 
 
 
-	hash_before = hash_test
-	time.sleep(refresh)
-	driver.quit()
+    time.sleep(refresh)
+    driver.quit()
 
 
