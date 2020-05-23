@@ -3,7 +3,7 @@
 ### h3 Heading
 #### h4 Heading
 ##### h5 Heading
-###### h6 Heading
+
 <!-- 
   ## Horizontal Rules
 
@@ -15,18 +15,18 @@ ___
 ***
 
 
-## Typographic replacements
+<!-- ## Typographic replacements -->
 
-(not working)
+<!-- (not working)
 
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
+(c) (C) (r) (R) (tm) (TM) (p) (P) +- -->
+<!-- 
 ## Emphasis
 
 **This is bold text**
 
 __This is bold text__
-
+ -->
 *This is italic text*
 
 _This is italic text_
