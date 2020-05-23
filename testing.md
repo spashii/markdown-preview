@@ -1,32 +1,35 @@
-# h1 Heading
-## h2 Heading
-### h3 Heading
-#### h4 Heading
-##### h5 Heading
-###### h6 Heading
 
 
-## Horizontal Rules
+hello
+
+# ngiiaga
+
+[hello](https://www.google.com)
+
+![ni](https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png)
+
+<!--   ## Horizontal Rules
+
 
 ___
-
+ -->
 ---
 
 ***
 
 
-## Typographic replacements
+<!-- ## Typographic replacements -->
 
-(not working)
+<!-- (not working)
 
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
+(c) (C) (r) (R) (tm) (TM) (p) (P) +- -->
+<!-- 
 ## Emphasis
 
 **This is bold text**
 
 __This is bold text__
-
+ -->
 *This is italic text*
 
 _This is italic text_
